@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<items>
+  <item type="ByWeight" name="Apple" perunnitprice="2" discounttype="cost" discountvalue="20"></item>
+  <item type="ByWeight" name="Banana" perunnitprice="0.5" discounttype="" discountvalue="" ></item>
+  <item type="ByWeight" name="Red Grapes" perunnitprice="1" discounttype="" discountvalue=""></item>
+  <item type="ByQuantity" name="Oats" perunnitprice="2" discounttype="" discountvalue=""></item>
+  <item type="ByQuantity" name="Chocolate" perunnitprice="1" discounttype="quantity" discountvalue="4|2"></item>
+  <item type="ByQuantity" name="Oats" perunnitprice="2" discounttype="" discountvalue=""></item>
+</items>

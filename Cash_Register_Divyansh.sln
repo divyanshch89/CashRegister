@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2050
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cash_Register_Divyansh", "Cash_Register_Divyansh\Cash_Register_Divyansh.csproj", "{6BEB6C3C-433A-414C-9F3E-D8CBB2F6CA96}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6BEB6C3C-433A-414C-9F3E-D8CBB2F6CA96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BEB6C3C-433A-414C-9F3E-D8CBB2F6CA96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6BEB6C3C-433A-414C-9F3E-D8CBB2F6CA96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6BEB6C3C-433A-414C-9F3E-D8CBB2F6CA96}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {506D4DF8-212A-448C-9FEB-3A100F02C97A}
+	EndGlobalSection
+EndGlobal
