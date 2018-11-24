@@ -1,8 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.IO;
-using Cash_Register_Divyansh.Models;
+﻿using System;
 
 namespace Cash_Register_Divyansh.Utility
 {

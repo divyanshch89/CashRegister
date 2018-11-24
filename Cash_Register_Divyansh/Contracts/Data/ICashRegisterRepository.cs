@@ -1,8 +1,6 @@
-﻿using System;
+﻿using Cash_Register_Divyansh.Models;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
-using Cash_Register_Divyansh.Models;
 
 namespace Cash_Register_Divyansh.Contracts.Data
 {

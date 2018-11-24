@@ -1,7 +1,5 @@
-﻿using System;
+﻿using Cash_Register_Divyansh.Models;
 using System.Collections.Generic;
-using System.Text;
-using Cash_Register_Divyansh.Models;
 
 namespace Cash_Register_Divyansh.Contracts.Business
 {
