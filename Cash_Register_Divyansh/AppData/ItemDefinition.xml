@@ -5,5 +5,5 @@
   <item type="ByWeight" name="Red Grapes" perunnitprice="1" discounttype="" discountvalue=""></item>
   <item type="ByQuantity" name="Oats" perunnitprice="2" discounttype="" discountvalue=""></item>
   <item type="ByQuantity" name="Chocolate" perunnitprice="1" discounttype="quantity" discountvalue="4|2"></item>
-  <item type="ByQuantity" name="Oats" perunnitprice="2" discounttype="" discountvalue=""></item>
+  <item type="ByQuantity" name="Kitchen Towel" perunnitprice="2" discounttype="" discountvalue=""></item>
 </items>
