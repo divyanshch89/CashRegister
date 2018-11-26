@@ -1,4 +1,4 @@
-﻿using Cash_Register_Divyansh.ApplicationTypes;
+using Cash_Register_Divyansh.ApplicationTypes;
 using Cash_Register_Divyansh.Contracts.Business;
 using Cash_Register_Divyansh.Contracts.Data;
 using Cash_Register_Divyansh.Models;
@@ -77,15 +77,24 @@ namespace Cash_Register_Divyansh.BusinessLogic
 
         public async void StartProcess()
         {
-            _masterList = await _cashRegRepo.GetItemList();
-            var counterFlag = true;
-            while (counterFlag)
+            try
             {
-                counterFlag = StartItemScan();
+                _masterList = await _cashRegRepo.GetItemList();
+                var counterFlag = true;
+                while (counterFlag)
+                {
+                    counterFlag = StartItemScan();
+                }
+                //show item summary here
+                _summaryManager.ShowSummary(_inProcessItemList);
+                Console.Read();
             }
-            //show item summary here
-            _summaryManager.ShowSummary(_inProcessItemList);
-            Console.Read();
+            catch (Exception e)
+            {
+                Console.WriteLine(string.Format("Error Occured: {0}. Please try again later", e.Message));
+                Console.Read();
+            }
+
         }
 
         private Item FindItemByName(string name)
