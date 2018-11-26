@@ -3,7 +3,6 @@ using Cash_Register_Divyansh.Contracts.Business;
 using Cash_Register_Divyansh.Contracts.Data;
 using Cash_Register_Divyansh.Models;
 using Cash_Register_Divyansh.Utility;
-using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,16 +11,14 @@ namespace Cash_Register_Divyansh.BusinessLogic
 {
     public class CashRegisterManager : ICashRegisterManager
     {
-        private readonly IConfigurationRoot _config;
         private readonly ICashRegisterRepository _cashRegRepo;
 
         private readonly ISummaryDisplayManager _summaryManager;
         private List<Item> _masterList;
-        private static List<ListItem> _inProcessItemList;
+        private List<ListItem> _inProcessItemList;
 
-        public CashRegisterManager(IConfigurationRoot config, ICashRegisterRepository cashRegRepo, ISummaryDisplayManager summaryManager)
+        public CashRegisterManager(ICashRegisterRepository cashRegRepo, ISummaryDisplayManager summaryManager)
         {
-            _config = config;
             _cashRegRepo = cashRegRepo;
             _summaryManager = summaryManager;
             _masterList = new List<Item>();
@@ -30,6 +27,7 @@ namespace Cash_Register_Divyansh.BusinessLogic
 
         public bool StartItemScan()
         {
+            const string wrongInput = "The entered input is not valid. Please try adding the item again.";
             Console.WriteLine("Enter the name of the item");
             var input = Console.ReadLine();
             var continueToScan = CommonUtility.ContinueToScan(input);
@@ -46,12 +44,20 @@ namespace Cash_Register_Divyansh.BusinessLogic
                             {
                                 AddOrUpdateProcessedItemList(item, quantity);
                             }
+                            else
+                            {
+                                Console.WriteLine(wrongInput);
+                            }
                             break;
                         case ItemType.ByWeight:
                             Console.WriteLine("Enter the weight of item (in lb):");
                             if (decimal.TryParse(Console.ReadLine(), out var quantityInDecimal))
                             {
                                 AddOrUpdateProcessedItemList(item, quantityInDecimal);
+                            }
+                            else
+                            {
+                                Console.WriteLine(wrongInput);
                             }
                             break;
                         default:
@@ -69,17 +75,13 @@ namespace Cash_Register_Divyansh.BusinessLogic
             return continueToScan;
         }
 
-        public async void StartProcess(bool initScanner)
+        public async void StartProcess()
         {
-            if (!initScanner) return;
-
-            var filePath = string.Format("{0}\\{1}", Environment.CurrentDirectory,
-                _config["AppSettings:ItemDefinitionFileRelativePath"]);
-            _masterList = await _cashRegRepo.GetItemListFromXml(filePath);
-            //Console.WriteLine("Starting Item Scan Module");
-            while (initScanner)
+            _masterList = await _cashRegRepo.GetItemList();
+            var counterFlag = true;
+            while (counterFlag)
             {
-                initScanner = StartItemScan();
+                counterFlag = StartItemScan();
             }
             //show item summary here
             _summaryManager.ShowSummary(_inProcessItemList);
@@ -91,7 +93,7 @@ namespace Cash_Register_Divyansh.BusinessLogic
             return _masterList.FirstOrDefault(it => it.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
         }
 
-        private static void AddOrUpdateProcessedItemList(Item item, decimal quantity)
+        private void AddOrUpdateProcessedItemList(Item item, decimal quantity)
         {
             var existingItem = _inProcessItemList.FirstOrDefault(x => x.Item.Name.Equals(item.Name, StringComparison.OrdinalIgnoreCase));
             if (existingItem != null)

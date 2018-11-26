@@ -6,6 +6,6 @@ namespace Cash_Register_Divyansh.Contracts.Data
 {
     public interface ICashRegisterRepository
     {
-        Task<List<Item>> GetItemListFromXml(string itemDefXmlPath);
+        Task<List<Item>> GetItemList();
     }
 }

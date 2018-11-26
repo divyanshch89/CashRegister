@@ -5,16 +5,25 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Xml;
+using Microsoft.Extensions.Configuration;
 
 namespace Cash_Register_Divyansh.Repositories
 {
     public class CashRegisterRepository : ICashRegisterRepository
     {
-        public Task<List<Item>> GetItemListFromXml(string itemDefXmlPath)
+        private readonly IConfigurationRoot _config;
+
+        public CashRegisterRepository(IConfigurationRoot config)
         {
+            _config = config;
+        }
+        public Task<List<Item>> GetItemList()
+        {
+            var xmlFilePath = string.Format("{0}\\{1}", Environment.CurrentDirectory,
+                _config["AppSettings:ItemDefinitionFileRelativePath"]);
             var xml = new XmlDocument();
             var masterList = new List<Item>();
-            xml.Load(itemDefXmlPath);
+            xml.Load(xmlFilePath);
             foreach (XmlNode child in xml.SelectSingleNode("//items").ChildNodes)
             {
                 var item = new Item

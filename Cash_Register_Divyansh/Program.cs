@@ -15,12 +15,12 @@ namespace Cash_Register_Divyansh
         {
             //load Dependencies
             var serviceProvider = AppStartUtility.LoadAndRegisterDependencies();
-            Console.WriteLine("Welcome to Custom Cash Register. Press enter to start scanning or type Exit to exit the application");
+            Console.WriteLine("Welcome to Custom Cash Register. Press enter to start scanning or type Exit while entering item name to check out or exit the application");
             var keepScanning = CommonUtility.ContinueToScan(Console.ReadLine());
             if (keepScanning)
             {
                 var cashRegManager = serviceProvider.GetService<ICashRegisterManager>();
-                cashRegManager.StartProcess(keepScanning);
+                cashRegManager.StartProcess();
             }
             else
             {

@@ -2,6 +2,6 @@
 {
     public interface ICashRegisterManager
     {
-        void StartProcess(bool initScanner);
+        void StartProcess();
     }
 }

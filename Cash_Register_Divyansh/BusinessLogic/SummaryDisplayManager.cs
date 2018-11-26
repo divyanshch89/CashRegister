@@ -18,19 +18,20 @@ namespace Cash_Register_Divyansh.BusinessLogic
             Console.WriteLine(string.Empty);
             if (itemList.Count <= 0)
             {
-                Console.WriteLine("No price summary to display");
+                Console.WriteLine("No price summary to display. Press enter to exit the application.");
                 return;
             }
-            Console.WriteLine("\t\t***Item Summary\n***\t\t");
+            Console.WriteLine("\t\t***Item Summary***");
             foreach (var item in itemList)
             {
                 //price calculation
                 var processedItem = _itemScanManager.ScanAndCalculateCost(item.Item, item.EnteredQuantity);
-                Console.WriteLine("Item Name: {0} \t Quantity/Weight (in lb): {1} \t Unit Cost: ${3} \t Item Cost: ${2} \t {4} \t",
-                    processedItem.Item.Name, processedItem.EnteredQuantity, processedItem.CalculatedCost, processedItem.Item.PerUnitPrice, processedItem.DiscountSummary);
+                Console.WriteLine("Item Name: {0}\tQuantity/Weight (in lb): {1}\tUnit Cost: ${2}\tItem Cost: ${3}\t{4}",
+                    processedItem.Item.Name, processedItem.EnteredQuantity, processedItem.Item.PerUnitPrice, processedItem.CalculatedCost, processedItem.DiscountSummary);
                 totalCost += processedItem.CalculatedCost;
             }
             Console.WriteLine("\nTotal Amount Due: ${0}", totalCost);
+            Console.WriteLine("Press enter to exit");
         }
     }
 }
