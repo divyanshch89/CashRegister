@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 using Cash_Register_Divyansh.Contracts.Business;
-using Cash_Register_Divyansh.Models;
 using Cash_Register_Divyansh.Utility;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 
 namespace Cash_Register_Divyansh
 {
