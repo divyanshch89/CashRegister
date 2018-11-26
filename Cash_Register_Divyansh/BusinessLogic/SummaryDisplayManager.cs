@@ -26,6 +26,7 @@ namespace Cash_Register_Divyansh.BusinessLogic
             {
                 //price calculation
                 var processedItem = _itemScanManager.ScanAndCalculateCost(item.Item, item.EnteredQuantity);
+                //display the itemized summary
                 Console.WriteLine("Item Name: {0}\tQuantity/Weight (in lb): {1}\tUnit Cost: ${2}\tItem Cost: ${3}\t{4}",
                     processedItem.Item.Name, processedItem.EnteredQuantity, processedItem.Item.PerUnitPrice, processedItem.CalculatedCost, processedItem.DiscountSummary);
                 totalCost += processedItem.CalculatedCost;
