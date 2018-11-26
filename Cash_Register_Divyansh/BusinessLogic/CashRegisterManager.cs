@@ -5,10 +5,12 @@ using Cash_Register_Divyansh.Models;
 using Cash_Register_Divyansh.Utility;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Cash_Register_Divyansh.BusinessLogic
 {
+    /// <summary>
+    /// Main class of the application. Responsible for implementing the cash register business logic
+    /// </summary>
     public class CashRegisterManager : ICashRegisterManager
     {
         private readonly ICashRegisterRepository _cashRegRepo;
@@ -25,56 +27,9 @@ namespace Cash_Register_Divyansh.BusinessLogic
             _inProcessItemList = new List<ListItem>();
         }
 
-        public bool StartItemScan()
-        {
-            const string wrongInput = "The entered input is not valid. Please try adding the item again.";
-            Console.WriteLine("Enter the name of the item");
-            var input = Console.ReadLine();
-            var continueToScan = CommonUtility.ContinueToScan(input);
-            if (continueToScan)
-            {
-                var item = FindItemByName(input);
-                if (item != null)
-                {
-                    switch (item.Type)
-                    {
-                        case ItemType.ByQuantity:
-                            Console.WriteLine("Enter the desired quantity:");
-                            if (int.TryParse(Console.ReadLine(), out var quantity))
-                            {
-                                AddOrUpdateProcessedItemList(item, quantity);
-                            }
-                            else
-                            {
-                                Console.WriteLine(wrongInput);
-                            }
-                            break;
-                        case ItemType.ByWeight:
-                            Console.WriteLine("Enter the weight of item (in lb):");
-                            if (decimal.TryParse(Console.ReadLine(), out var quantityInDecimal))
-                            {
-                                AddOrUpdateProcessedItemList(item, quantityInDecimal);
-                            }
-                            else
-                            {
-                                Console.WriteLine(wrongInput);
-                            }
-                            break;
-                        default:
-                            Console.WriteLine("Item type not found");
-                            break;
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("Item not found");
-
-                }
-            }
-
-            return continueToScan;
-        }
-
+        /// <summary>
+        /// Initiate the cash register main process flow
+        /// </summary>
         public async void StartProcess()
         {
             try
@@ -97,23 +52,59 @@ namespace Cash_Register_Divyansh.BusinessLogic
 
         }
 
-        private Item FindItemByName(string name)
+        /// <summary>
+        /// Responsible for scanning the items
+        /// </summary>
+        /// <returns>The flag which updates the condition for item scanning loop</returns>
+        public bool StartItemScan()
         {
-            return _masterList.FirstOrDefault(it => it.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
+            const string wrongInput = "The entered input is not valid. Please try adding the item again.";
+            Console.WriteLine("Enter the name of the item");
+            var input = Console.ReadLine();
+            var continueToScan = CommonUtility.ContinueToScan(input);
+            if (continueToScan)
+            {
+                var item = CommonUtility.FindItemByName(_masterList, input);
+                if (item != null)
+                {
+                    switch (item.Type)
+                    {
+                        case ItemType.ByQuantity:
+                            Console.WriteLine("Enter the desired quantity:");
+                            if (int.TryParse(Console.ReadLine(), out var quantity))
+                            {
+                                _inProcessItemList = CommonUtility.AddOrUpdateInProcessItemList(_inProcessItemList, item, quantity);
+                            }
+                            else
+                            {
+                                Console.WriteLine(wrongInput);
+                            }
+                            break;
+                        case ItemType.ByWeight:
+                            Console.WriteLine("Enter the weight of item (in lb):");
+                            if (decimal.TryParse(Console.ReadLine(), out var quantityInDecimal))
+                            {
+                                _inProcessItemList = CommonUtility.AddOrUpdateInProcessItemList(_inProcessItemList, item, quantityInDecimal);
+                            }
+                            else
+                            {
+                                Console.WriteLine(wrongInput);
+                            }
+                            break;
+                        default:
+                            Console.WriteLine("Item type not found");
+                            break;
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Item not found");
+
+                }
+            }
+
+            return continueToScan;
         }
 
-        private void AddOrUpdateProcessedItemList(Item item, decimal quantity)
-        {
-            var existingItem = _inProcessItemList.FirstOrDefault(x => x.Item.Name.Equals(item.Name, StringComparison.OrdinalIgnoreCase));
-            if (existingItem != null)
-            {
-                //update the list item
-                existingItem.EnteredQuantity += quantity;
-            }
-            else
-            {
-                _inProcessItemList.Add(new ListItem { Item = item, EnteredQuantity = quantity });
-            }
-        }
     }
 }

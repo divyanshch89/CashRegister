@@ -5,10 +5,13 @@ using System;
 
 namespace Cash_Register_Divyansh.BusinessLogic
 {
-    public class ItemScannerManager : IItemScannerManager
+    /// <summary>
+    /// Responsible for discount calculation of scanned items
+    /// </summary>
+    public class CostCalculatorManager : ICostCalculatorManager
     {
 
-        public ListItem ScanAndCalculateCost(Item scannedItem, decimal quantity)
+        public ListItem CalculateCost(Item scannedItem, decimal quantity)
         {
             var lItem = new ListItem();
             

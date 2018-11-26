@@ -3,5 +3,6 @@
     public interface ICashRegisterManager
     {
         void StartProcess();
+        bool StartItemScan();
     }
 }

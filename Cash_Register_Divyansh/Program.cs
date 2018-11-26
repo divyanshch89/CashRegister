@@ -5,6 +5,9 @@ using System;
 
 namespace Cash_Register_Divyansh
 {
+    /// <summary>
+    /// Entry point of the application
+    /// </summary>
     class Program
     {
         static void Main(string[] args)

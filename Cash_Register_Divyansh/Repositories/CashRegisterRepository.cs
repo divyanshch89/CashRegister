@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace Cash_Register_Divyansh.Repositories
 {
+
     public class CashRegisterRepository : ICashRegisterRepository
     {
         private readonly IConfigurationRoot _config;
@@ -17,6 +18,10 @@ namespace Cash_Register_Divyansh.Repositories
         {
             _config = config;
         }
+
+        /// <summary>
+        /// Load master item list by reading the ItemDefinition xml located in AppData folder
+        /// </summary>
         public Task<List<Item>> GetItemList()
         {
             var xmlFilePath = string.Format("{0}\\{1}", Environment.CurrentDirectory,

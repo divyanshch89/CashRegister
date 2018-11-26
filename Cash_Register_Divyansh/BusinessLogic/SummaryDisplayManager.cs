@@ -5,10 +5,13 @@ using System.Collections.Generic;
 
 namespace Cash_Register_Divyansh.BusinessLogic
 {
+    /// <summary>
+    /// Displays the item summary
+    /// </summary>
     public class SummaryDisplayManager : ISummaryDisplayManager
     {
-        private readonly IItemScannerManager _itemScanManager;
-        public SummaryDisplayManager(IItemScannerManager itemScanManager)
+        private readonly ICostCalculatorManager _itemScanManager;
+        public SummaryDisplayManager(ICostCalculatorManager itemScanManager)
         {
             _itemScanManager = itemScanManager;
         }
@@ -25,7 +28,7 @@ namespace Cash_Register_Divyansh.BusinessLogic
             foreach (var item in itemList)
             {
                 //price calculation
-                var processedItem = _itemScanManager.ScanAndCalculateCost(item.Item, item.EnteredQuantity);
+                var processedItem = _itemScanManager.CalculateCost(item.Item, item.EnteredQuantity);
                 //display the itemized summary
                 Console.WriteLine("Item Name: {0}\tQuantity/Weight (in lb): {1}\tUnit Cost: ${2}\tItem Cost: ${3}\t{4}",
                     processedItem.Item.Name, processedItem.EnteredQuantity, processedItem.Item.PerUnitPrice, processedItem.CalculatedCost, processedItem.DiscountSummary);

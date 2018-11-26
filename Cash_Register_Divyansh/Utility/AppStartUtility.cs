@@ -9,6 +9,9 @@ using Cash_Register_Divyansh.Repositories;
 
 namespace Cash_Register_Divyansh.Utility
 {
+    /// <summary>
+    /// Responsible for registering services with default DI container
+    /// </summary>
     public class AppStartUtility
     {
         public static IConfigurationRoot Configuration;
@@ -32,7 +35,7 @@ namespace Cash_Register_Divyansh.Utility
             // Add services
             serviceCollection.AddTransient<ICashRegisterManager, CashRegisterManager>();
             serviceCollection.AddTransient<ICashRegisterRepository, CashRegisterRepository>();
-            serviceCollection.AddTransient<IItemScannerManager, ItemScannerManager>();
+            serviceCollection.AddTransient<ICostCalculatorManager, CostCalculatorManager>();
             serviceCollection.AddTransient<ISummaryDisplayManager, SummaryDisplayManager>();
 
         }
