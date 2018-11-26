@@ -28,7 +28,6 @@ namespace Cash_Register_Divyansh
                 Console.WriteLine("Thank you!");
                 Console.Read();
             }
-            //show item summary
         }
     }
 }
